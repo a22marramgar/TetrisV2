@@ -7,5 +7,6 @@ public enum TipoPieza {
 	piezaS,
 	piezaZ,
 	piezaI,
-	piezaO
+	piezaO,
+	piezaNula
 }
