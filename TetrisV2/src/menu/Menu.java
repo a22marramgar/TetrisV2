@@ -4,11 +4,12 @@ import java.util.Scanner;
 
 import pieza.Pieza;
 import pieza.TipoPieza;
+import taulell.Taulell;
 
 public class Menu {
-	
-	public static final Scanner scan = new Scanner(System.in);
-	
+
+	private static Scanner scan = new Scanner(System.in);
+
 	public static final String ANSI_RESET = "\u001B[0m";
 	public static final String ANSI_BLACK = "\u001B[30m";
 	public static final String ANSI_RED = "\u001B[31m";
@@ -45,6 +46,8 @@ public class Menu {
 					case piezaT:
 						System.out.print(ANSI_PURPLE + "■");
 						break;
+					default:
+						break;
 					}
 
 				} else {
@@ -56,37 +59,80 @@ public class Menu {
 		}
 	}
 
-	public static Pieza ControlarPieza(int amplada) {
+	public static void MostrarTaulell(Taulell t) {
+		TipoPieza[][] taulell = t.getTaulell();
+		for (int i = 0; i < t.getTaulell().length; i++) {
+			for (int j = 0; j < t.getTaulell()[0].length; j++) {
+				switch (taulell[i][j]) {
+				case piezaI:
+					System.out.print(ANSI_CYAN + "■");
+					break;
+				case piezaO:
+					System.out.print(ANSI_YELLOW + "■");
+					break;
+				case piezaS:
+					System.out.print(ANSI_GREEN + "■");
+					break;
+				case piezaL:
+					System.out.print(ANSI_BLUE + "■");
+					break;
+				case piezaJ:
+					System.out.print(ANSI_WHITE + "■");
+					break;
+				case piezaZ:
+					System.out.print(ANSI_RED + "■");
+					break;
+				case piezaT:
+					System.out.print(ANSI_PURPLE + "■");
+					break;
+				case piezaNula:
+					System.out.print("□");
+				default:
+					break;
+				}
+			}
+			System.out.println();
+		}
+	}
+
+	public static Taulell DefinirTablero() {
+		int amplada = getInt("Introdueix l'amplada del taulell: ");
+		int alcada = getInt("Introdueix l'alcada del taulell: ");
+		Taulell t = new Taulell(alcada, amplada);
+		return t;
+	}
+
+	public static Pieza ControlarPieza(Taulell t) {
 		int dau = (int) (Math.random() * 7 + 1);
 		Pieza p = null;
 		switch (dau) {
-			case 1:
-				p = new Pieza(TipoPieza.piezaI);
-				break;
-			case 2:
-				p = new Pieza(TipoPieza.piezaO);
-				break;
-			case 3:
-				p = new Pieza(TipoPieza.piezaS);
-				break;
-			case 4:
-				p = new Pieza(TipoPieza.piezaJ);
-				break;
-			case 5:
-				p = new Pieza(TipoPieza.piezaL);
-				break;
-			case 6:
-				p = new Pieza(TipoPieza.piezaZ);
-				break;
-			case 7:
-				p = new Pieza(TipoPieza.piezaT);
-				break;
+		case 1:
+			p = new Pieza(TipoPieza.piezaI);
+			break;
+		case 2:
+			p = new Pieza(TipoPieza.piezaO);
+			break;
+		case 3:
+			p = new Pieza(TipoPieza.piezaS);
+			break;
+		case 4:
+			p = new Pieza(TipoPieza.piezaJ);
+			break;
+		case 5:
+			p = new Pieza(TipoPieza.piezaL);
+			break;
+		case 6:
+			p = new Pieza(TipoPieza.piezaZ);
+			break;
+		case 7:
+			p = new Pieza(TipoPieza.piezaT);
+			break;
 		}
 		boolean salir = false;
 		do {
 			clearScreen();
-			
-			MostrarPieza(p,amplada);
+			MostrarPieza(p, t.getAmplada());
+			MostrarTaulell(t);
 			System.out.println("a: [←], d: [→], r: rotar s: llencar peca");
 			switch (scan.nextLine().toLowerCase()) {
 			case "a":
@@ -94,10 +140,10 @@ public class Menu {
 
 				break;
 			case "d":
-				p.moverDer(amplada);
+				p.moverDer(t.getAmplada());
 				break;
 			case "r":
-				p.rotar(amplada);
+				p.rotar(t.getAmplada());
 				break;
 			case "s":
 				salir = true;
@@ -105,12 +151,37 @@ public class Menu {
 			default:
 				break;
 			}
-		}while(!salir);
+		} while (!salir);
 		return p;
 	}
-	
+
+	/**
+	 * Pide un valor de tipo Int
+	 * 
+	 * @param pedirEntero Texto que se muestra por pantalla para pedir un entero
+	 * @return Devuelve un valor entero
+	 */
+	public static int getInt(String f) {
+		int numero = 0;
+		boolean valido = false;
+		while (!valido) {
+			System.out.print(f);
+			try {
+				numero = scan.nextInt();
+				scan.nextLine();
+				valido = true;
+			} catch (Exception e) {
+				scan = new Scanner(System.in);
+				System.err.println("Error: " + e);
+				System.out.println("Vuelve a intentarlo");
+			}
+		}
+
+		return numero;
+	}
+
 	public static void clearScreen() {
-        System.out.print("\n\n\n\n\n\n\n\n\n\n");
-        System.out.flush();
-    }
+		System.out.print("\n\n\n\n\n\n\n\n\n\n");
+		System.out.flush();
+	}
 }

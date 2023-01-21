@@ -1,11 +1,13 @@
-import pieza.*;
 import menu.*;
+import pieza.*;
+import taulell.Taulell;
 
 public class Main {
 
 	public static void main(String[] args) {
-		Menu.ControlarPieza(30);
-
+		Taulell t = Menu.DefinirTablero();
+		Pieza p = Menu.ControlarPieza(t);
+		Menu.MostrarTaulell(t);
 	}
 
 }

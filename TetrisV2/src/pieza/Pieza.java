@@ -58,10 +58,6 @@ public class Pieza {
 		}
 	}
 
-	private Pieza() {
-
-	}
-
 	public boolean[][] getPosicion() {
 		return this._posicion;
 	}
