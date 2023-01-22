@@ -96,13 +96,19 @@ public class Menu {
 				}
 				System.out.print(" "+ANSI_RESET);
 			}
-			System.out.println();
+			System.out.println(i==t.getTaulell().length-1? "Puntuacio: "+t.getPuntuacion():"");
 		}
 	}
 
 	public static Taulell DefinirTaulell() {
-		int amplada = getInt("Introdueix l'amplada del taulell: ");
-		int alcada = getInt("Introdueix l'alcada del taulell: ");
+		int amplada;
+		int alcada;
+		do {
+		amplada = getInt("Introdueix l'amplada del taulell(minim 4): ");
+		}while(amplada<4);
+		do {
+		alcada = getInt("Introdueix l'alcada del taulell(minim 4): ");
+		}while(alcada<4);
 		Taulell t = new Taulell(alcada, amplada);
 		return t;
 	}

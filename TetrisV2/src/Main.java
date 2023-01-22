@@ -10,8 +10,10 @@ public class Main {
 		while (!finalPartida) {
 			Pieza p = Menu.ControlarPieza(t);
 			finalPartida = t.FerCaureLaPieza(p);
+			t.ComprobarFilas();
 		}
-		System.out.println("Fin de la partida");
+		System.out.println("Fi de la partida");
+		System.out.println("Puntuacio: "+t.getPuntuacion());
 	}
 
 }
