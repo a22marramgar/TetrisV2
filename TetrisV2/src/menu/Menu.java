@@ -187,8 +187,7 @@ public class Menu {
 				valido = true;
 			} catch (Exception e) {
 				scan = new Scanner(System.in);
-				System.err.println("Error: " + e);
-				System.out.println("Vuelve a intentarlo");
+				System.out.println("Introdueix un valor correcte");
 			}
 		}
 
