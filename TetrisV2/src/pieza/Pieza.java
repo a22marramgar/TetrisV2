@@ -141,9 +141,8 @@ public class Pieza {
 		this._columna -= Math.max(getAncho()+this._columna-amplada, 0);
 
 	}
-
-	private void reposicionar() {
-		// Desplazamientos hacia abajo
+	
+	private int huecoAbajo() {
 		int desplazarAbajo = 0;
 		boolean salir = false;
 		for (int i = _posicion.length - 1; i >= 0 && !salir; i--) {
@@ -159,10 +158,12 @@ public class Pieza {
 				desplazarAbajo++;
 			}
 		}
-
-		// Desplazamientos hacia la izquierda
+		return desplazarAbajo;
+	}
+	
+	private int huecoIzq() {
 		int desplazarIzq = 0;
-		salir = false;
+		boolean salir = false;
 		for (int i = 0; i < _posicion.length && !salir; i++) {
 			int contador = 0;
 			for (int j = _posicion.length - 1; j >= 0 && !salir; j--) {
@@ -176,7 +177,14 @@ public class Pieza {
 				desplazarIzq++;
 			}
 		}
+		return desplazarIzq;
+	}
 
+	private void reposicionar() {
+		// Desplazamientos hacia abajo
+		int desplazarAbajo = huecoAbajo();
+		// Desplazamientos hacia la izquierda
+		int desplazarIzq = huecoIzq();
 		// Mover
 		boolean[][] aux = new boolean[_posicion.length][_posicion.length];
 		for (int i = _posicion.length - 1; i >= 0; i--) {
