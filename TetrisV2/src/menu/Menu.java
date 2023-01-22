@@ -53,13 +53,17 @@ public class Menu {
 				} else {
 					System.out.print("□");
 				}
-				System.out.print(ANSI_RESET);
+				System.out.print(" "+ANSI_RESET);
 			}
 			System.out.println();
 		}
 	}
 
 	public static void MostrarTaulell(Taulell t) {
+		for(int i = 0; i<t.getAmplada();i++) {
+			System.out.print("- ");
+		}
+		System.out.println();
 		TipoPieza[][] taulell = t.getTaulell();
 		for (int i = 0; i < t.getTaulell().length; i++) {
 			for (int j = 0; j < t.getTaulell()[0].length; j++) {
@@ -90,7 +94,7 @@ public class Menu {
 				default:
 					break;
 				}
-				System.out.print(ANSI_RESET);
+				System.out.print(" "+ANSI_RESET);
 			}
 			System.out.println();
 		}

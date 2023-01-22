@@ -9,8 +9,9 @@ public class Main {
 		boolean finalPartida = false;
 		while (!finalPartida) {
 			Pieza p = Menu.ControlarPieza(t);
-			t.FerCaureLaPieza(p);
+			finalPartida = t.FerCaureLaPieza(p);
 		}
+		System.out.println("Fin de la partida");
 	}
 
 }

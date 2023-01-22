@@ -29,16 +29,17 @@ public class Taulell {
 		boolean[][] posicionPieza = p.getPosicion();
 		int altura = -1;
 		boolean ocupado = false;
-		for (int i = p.getAlto(); i < _matriu.length && !ocupado; i++) {
+		for (int i = p.getAlto()-1; i < _matriu.length && !ocupado; i++) {
 			for (int j = 0; j < posicionPieza.length; j++) {
 				for (int k = 0; k < posicionPieza.length; k++) {
-					if (i == _matriu.length - 1) {
-						altura = i;
-					} else if (posicionPieza[j][k] && _matriu[j + i - 3][p.getColumna() + k] != TipoPieza.piezaNula) {
+					if (posicionPieza[j][k] && _matriu[j + i - 3][p.getColumna() + k] != TipoPieza.piezaNula) {
 						altura = i - 1;
 						ocupado = true;
 					}
 				}
+			}
+			if (altura==-1&&i == _matriu.length - 1) {
+				altura = i;
 			}
 		}
 		return altura;
@@ -50,7 +51,7 @@ public class Taulell {
 		boolean ocupado = false;
 
 		int altura = BuscarPosicio(p);
-		if (altura == -1) {
+		if (altura < p.getAlto()-1) {
 			ocupado = true;
 		} else {
 			for (int j = posicionPieza.length - 1; j >= 0; j--) {
