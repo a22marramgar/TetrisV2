@@ -90,19 +90,20 @@ public class Menu {
 				default:
 					break;
 				}
+				System.out.print(ANSI_RESET);
 			}
 			System.out.println();
 		}
 	}
 
-	public static Taulell DefinirTablero() {
+	public static Taulell DefinirTaulell() {
 		int amplada = getInt("Introdueix l'amplada del taulell: ");
 		int alcada = getInt("Introdueix l'alcada del taulell: ");
 		Taulell t = new Taulell(alcada, amplada);
 		return t;
 	}
-
-	public static Pieza ControlarPieza(Taulell t) {
+	
+	public static Pieza NovaPieza() {
 		int dau = (int) (Math.random() * 7 + 1);
 		Pieza p = null;
 		switch (dau) {
@@ -128,6 +129,11 @@ public class Menu {
 			p = new Pieza(TipoPieza.piezaT);
 			break;
 		}
+		return p;
+	}
+
+	public static Pieza ControlarPieza(Taulell t) {
+		Pieza p = NovaPieza();
 		boolean salir = false;
 		do {
 			clearScreen();
@@ -137,7 +143,6 @@ public class Menu {
 			switch (scan.nextLine().toLowerCase()) {
 			case "a":
 				p.moverIzq();
-
 				break;
 			case "d":
 				p.moverDer(t.getAmplada());

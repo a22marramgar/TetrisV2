@@ -86,12 +86,26 @@ public class Pieza {
 		}
 	}
 
-	private int getAncho() {
+	public int getAncho() {
 		int contador = 0;
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < _posicion.length; i++) {
 			boolean salir = false;
-			for (int j = 0; j < 4 && !salir; j++) {
+			for (int j = 0; j < _posicion.length && !salir; j++) {
 				if (this._posicion[j][i]) {
+					contador++;
+					salir = true;
+				}
+			}
+		}
+		return contador;
+	}
+	
+	public int getAlto() {
+		int contador = 0;
+		for (int i = 0; i < _posicion.length; i++) {
+			boolean salir = false;
+			for (int j = 0; j < _posicion.length && !salir; j++) {
+				if (this._posicion[i][j]) {
 					contador++;
 					salir = true;
 				}
@@ -141,7 +155,7 @@ public class Pieza {
 					salir = true;
 				}
 			}
-			if (contador == 4) {
+			if (contador == _posicion.length) {
 				desplazarAbajo++;
 			}
 		}
@@ -164,10 +178,10 @@ public class Pieza {
 		}
 
 		// Mover
-		boolean[][] aux = new boolean[4][4];
+		boolean[][] aux = new boolean[_posicion.length][_posicion.length];
 		for (int i = _posicion.length - 1; i >= 0; i--) {
 			for (int j = 0; j < _posicion.length 
-					&& i - desplazarAbajo >= 0 && j + desplazarIzq < 4; j++) {
+					&& i - desplazarAbajo >= 0 && j + desplazarIzq < _posicion.length; j++) {
 				aux[i][j] = _posicion[i - desplazarAbajo][j + desplazarIzq];
 			}
 		}
